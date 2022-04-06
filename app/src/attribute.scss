@@ -1,0 +1,20 @@
+// color palette
+$green: #8ce4c1;
+$yellow: #fefad4;
+$orange: #fcd08a;
+$red: #f1828d;
+$brown: #765d69;
+$blue: #355c7d;
+
+$width1: 1280px;
+@mixin mobile1 {
+  @media (max-width: #{$width1}) {
+    @content;
+  }
+}
+$width2: 720px;
+@mixin mobile2 {
+  @media (max-width: #{$width2}) {
+    @content;
+  }
+}
