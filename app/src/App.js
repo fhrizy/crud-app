@@ -32,11 +32,9 @@ function App() {
           if (mounted) {
             setData(res.data);
             setLoading(false);
-            setCancel(false);
-            if (location.pathname === "/add" && `/edit/${id}`) {
+            if (location.pathname === "/add") {
               setCancel(true);
-            }
-            if (id === "") {
+            } else if (cancel === false) {
               navigate("/");
             }
           }
@@ -47,7 +45,7 @@ function App() {
     return () => {
       mounted = false;
     };
-  }, [page, location, navigate, id]);
+  }, [page, location, navigate, id, cancel]);
 
   const addData = async () => {
     await axios.post(`http://localhost:8080/api/create`, {
