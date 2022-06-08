@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Next from "../assets/caret-right-fill.svg";
 import Previous from "../assets/caret-left-fill.svg";
 import Edit from "../assets/pencil-square.svg";
@@ -7,15 +8,34 @@ import "../stylesheets/data.scss";
 
 function Data({
   navigate,
-  data,
-  loading,
   deleteData,
-  page,
-  setPage,
-  setCancel,
   setId,
   editRequest,
 }) {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const axiosData = async () => {
+      await axios
+        .get(`http://localhost:8080/api/findall?page=${page}&size=10`)
+        .then((res) => {
+          if (mounted) {
+            setData(res.data);
+            setLoading(false);
+          }
+        });
+    };
+    axiosData();
+
+    return () => {
+      mounted = false;
+    };
+  }, [page, deleteData]);
+
   return (
     <div className="data">
       <div className="header">
@@ -38,7 +58,7 @@ function Data({
           </button>
         </div>
       </div>
-      <div className="data">
+      <div className="pelamar">
         <ul className="table">
           <li className="header-table">
             <div className="col1">Name</div>
@@ -78,7 +98,6 @@ function Data({
                           alt="edit"
                           onClick={() => {
                             setPage("edit");
-                            setCancel(true);
                             setId(data.id);
                             editRequest(data.id);
                             navigate(`/edit/${data.id}`);

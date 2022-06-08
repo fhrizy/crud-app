@@ -1,5 +1,5 @@
 import React from "react";
-import "../stylesheets/edit.scss"
+import "../stylesheets/edit.scss";
 
 function Edit({
   editData,
@@ -20,7 +20,7 @@ function Edit({
         <span>Edit Data</span>
       </div>
       <div className="form">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={editData}>
           <div className="top">
             <div className="left">
               <label>First Name</label>
@@ -81,7 +81,7 @@ function Edit({
               <button type="reset" className="reset">
                 Reset
               </button>
-              <button type="submit" className="submit" onClick={editData}>
+              <button type="submit" className="submit">
                 Save
               </button>
             </div>

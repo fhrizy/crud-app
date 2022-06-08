@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Add from "./pages/Add";
@@ -8,46 +8,17 @@ import Topbar from "./components/Topbar";
 import "./app.scss";
 
 function App() {
-  const [data, setData] = useState([]);
   const [id, setId] = useState("");
-  const [cancel, setCancel] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
-
   const location = useLocation();
 
-  useEffect(() => {
-    let mounted = true;
-
-    const axiosData = async () => {
-      await axios
-        .get(`http://localhost:8080/api/findall?page=${page}&size=4`)
-        .then((res) => {
-          if (mounted) {
-            setData(res.data);
-            setLoading(false);
-            if (location.pathname === "/add") {
-              setCancel(true);
-            } else if (cancel === false) {
-              navigate("/");
-            }
-          }
-        });
-    };
-    axiosData();
-
-    return () => {
-      mounted = false;
-    };
-  }, [page, location, navigate, id, cancel]);
-
-  const addData = async () => {
+  const addData = async (e) => {
+    e.preventDefault();
     await axios.post(`http://localhost:8080/api/create`, {
       firstName: firstName,
       lastName: lastName,
@@ -73,7 +44,8 @@ function App() {
     });
   };
 
-  const editData = async (id) => {
+  const editData = async (e) => {
+    e.preventDefault();
     await axios.put(`http://localhost:8080/api/update/${id}`, {
       firstName: firstName,
       lastName: lastName,
@@ -87,7 +59,7 @@ function App() {
   return (
     <div className="app">
       <div className="pages">
-        <Topbar navigate={navigate} cancel={cancel} setCancel={setCancel} />
+        <Topbar navigate={navigate} location={location} />
         <div className="body">
           <Routes>
             <Route
@@ -95,12 +67,7 @@ function App() {
               element={
                 <Data
                   navigate={navigate}
-                  data={data}
-                  loading={loading}
                   deleteData={deleteData}
-                  page={page}
-                  setPage={setPage}
-                  setCancel={setCancel}
                   setId={setId}
                   editRequest={editRequest}
                 />

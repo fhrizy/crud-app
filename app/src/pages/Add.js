@@ -15,7 +15,7 @@ function Add({
         <span>Add Data</span>
       </div>
       <div className="form">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={addData}>
           <div className="top">
             <div className="left">
               <label>First Name</label>
@@ -71,7 +71,7 @@ function Add({
               <button type="reset" className="reset">
                 Reset
               </button>
-              <button type="submit" className="submit" onClick={addData}>
+              <button type="submit" className="submit">
                 Submit
               </button>
             </div>
