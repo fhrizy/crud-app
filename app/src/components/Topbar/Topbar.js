@@ -1,7 +1,6 @@
 import React from "react";
-
-import Plus from "../assets/plus.svg";
-import "../stylesheets/topbar.scss";
+import Plus from "../../assets/plus.svg";
+import "./topbar.scss";
 
 function Topbar({ navigate, location }) {
   return (

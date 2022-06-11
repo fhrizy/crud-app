@@ -30,19 +30,18 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  // const firstName = req.query.firstName;
-  // var condition = firstName
-  //   ? { firstName: { $regex: new RegExp(firstName), $options: "i" } }
-  //   : {};
-  const { page, size } = req.query;
-  const { limit, offset } = getPagination(page, size);
-  Crud.paginate({}, { offset, limit })
+  // const { page, size } = req.query;
+  // const { limit, offset } = getPagination(page, size);
+  Crud.find({
+    // limit,
+    // offset,
+  })
     .then((data) => {
       res.status(200).json({
-        totalItems: data.totalDocs,
-        data: data.docs,
-        totalPages: data.totalPages,
-        currentPage: data.page - 1,
+        data: data,
+        // totalItems: data.totalDocs,
+        // totalPages: data.totalPages,
+        // currentPage: data.page - 1,
       });
     })
     .catch((err) => {
