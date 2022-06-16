@@ -1,4 +1,4 @@
-@import "../attribute.scss";
+@import "../../attribute.scss";
 
 .data {
   width: 100%;
@@ -8,7 +8,7 @@
   align-items: center;
   .header {
     width: 100%;
-    height: 7.5%;
+    height: 60px;
     margin: 0 2rem;
     display: flex;
     flex-direction: row;
@@ -17,8 +17,8 @@
     background-color: $blue;
     .overview {
       width: 200px;
-      height: 60%;
-      margin: 0 2rem;
+      height: 40px;
+      margin: 1rem 2rem;
       border-radius: 5px;
       display: flex;
       flex-direction: row;
@@ -64,9 +64,9 @@
     }
   }
   .pelamar {
-    width: 100%;
-    height: 90%;
-    padding: 2.3rem 2.2rem 2rem 0rem;
+    width: calc(100% - 40px);
+    height: calc(100% - 60px);
+    padding: 20px 40px 20px 0px;
     display: flex;
     align-items: center;
     justify-content: center;

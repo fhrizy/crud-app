@@ -1,10 +1,54 @@
 const db = require("../models");
 const Crud = db.crud;
 
-const getPagination = (page, size) => {
-  const limit = size ? +size : 3;
-  const offset = page ? page * limit : 0;
-  return { limit, offset };
+// const getPagination = (page, size) => {
+//   const limit = size ? +size : 3;
+//   const offset = page ? page * limit : 0;
+//   return { limit, offset };
+// };
+
+exports.register = (req, res) => {
+  const { username, password } = req.body;
+  const crud = { username, password };
+  // Validate request
+  if (!(username && password)) {
+    return res.status(400).send({
+      message: "Data cannot be empty!",
+    });
+  }
+
+  // Save crud in the database
+  Crud.create(crud)
+    .then((data) => {
+      res.status(200).json({ data: data });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the crud.",
+      });
+    });
+};
+
+exports.login = (req, res) => {
+  const { username, password } = req.body;
+  const crud = { username, password };
+  // Validate request
+  if (!(username && password)) {
+    return res.status(400).send({
+      message: "Data cannot be empty!",
+    });
+  }
+
+  // Save crud in the database
+  Crud.find({ username, password })
+    .then((data) => {
+      res.status(200).json({ data: data });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the crud.",
+      });
+    });
 };
 
 exports.create = (req, res) => {
@@ -30,19 +74,18 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  // const firstName = req.query.firstName;
-  // var condition = firstName
-  //   ? { firstName: { $regex: new RegExp(firstName), $options: "i" } }
-  //   : {};
-  const { page, size } = req.query;
-  const { limit, offset } = getPagination(page, size);
-  Crud.paginate({}, { offset, limit })
+  // const { page, size } = req.query;
+  // const { limit, offset } = getPagination(page, size);
+  Crud.find({
+    // limit,
+    // offset,
+  })
     .then((data) => {
       res.status(200).json({
-        totalItems: data.totalDocs,
-        data: data.docs,
-        totalPages: data.totalPages,
-        currentPage: data.page - 1,
+        data: data,
+        // totalItems: data.totalDocs,
+        // totalPages: data.totalPages,
+        // currentPage: data.page - 1,
       });
     })
     .catch((err) => {

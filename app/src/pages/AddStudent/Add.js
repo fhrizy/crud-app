@@ -1,13 +1,8 @@
 import React from "react";
-import "../stylesheets/edit.scss";
+import "./add.scss";
 
-function Edit({
-  editData,
-  firstName,
-  lastName,
-  email,
-  phone,
-  address,
+function Add({
+  addData,
   setFirstName,
   setLastName,
   setEmail,
@@ -15,17 +10,16 @@ function Edit({
   setAddress,
 }) {
   return (
-    <div className="edit">
+    <div className="add">
       <div className="header">
-        <span>Edit Data</span>
+        <span>Add Data</span>
       </div>
       <div className="form">
-        <form onSubmit={editData}>
+        <form onSubmit={addData}>
           <div className="top">
             <div className="left">
               <label>First Name</label>
               <input
-                value={firstName}
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
@@ -36,7 +30,6 @@ function Edit({
             <div className="right">
               <label>Last Name</label>
               <input
-                value={lastName}
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
@@ -48,7 +41,6 @@ function Edit({
             <div className="left">
               <label>Email</label>
               <input
-                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -58,7 +50,6 @@ function Edit({
             <div className="right">
               <label>Phone Number</label>
               <input
-                value={phone}
                 onChange={(e) => {
                   setPhone(e.target.value);
                 }}
@@ -70,7 +61,6 @@ function Edit({
             <div className="left">
               <label>Address</label>
               <textarea
-                value={address}
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
@@ -82,7 +72,7 @@ function Edit({
                 Reset
               </button>
               <button type="submit" className="submit">
-                Save
+                Submit
               </button>
             </div>
           </div>
@@ -92,4 +82,4 @@ function Edit({
   );
 }
 
-export default Edit;
+export default Add;

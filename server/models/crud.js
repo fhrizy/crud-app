@@ -1,13 +1,16 @@
-module.exports = (mongoose, mongoosePaginate) => {
+module.exports = (mongoose) => {
   const schema = mongoose.Schema(
     {
+      username: String,
+      password: String,
       firstName: String,
       lastName: String,
       email: String,
       phone: String,
       address: String,
+      role: String,
     },
-    { timestamps: true }
+    { timestamps: true },
   );
 
   schema.method("toJSON", function () {
@@ -15,7 +18,6 @@ module.exports = (mongoose, mongoosePaginate) => {
     object.id = _id;
     return object;
   });
-  schema.plugin(mongoosePaginate);
 
   const Crud = mongoose.model("crud", schema);
   return Crud;
